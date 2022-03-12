@@ -10,7 +10,6 @@ mapboxgl.accessToken =
 
 function App() {
   const mapContainer = useRef(null);
-  const [map] = useState(null);
   const [lng] = useState(73.0897201);
   const [lat] = useState(31.4317641);
   const [zoom] = useState(12);

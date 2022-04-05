@@ -127,11 +127,15 @@ function App() {
       });
 
       map.on("click", () => {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "none";
         const tooltipNode = document.getElementById("layerProperties_body");
         ReactDOM.render([], tooltipNode);
       });
 
       map.on("click", "ohr", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
         const object = e.features[0].properties;
         let arr = [];
         for (const property in object) {
@@ -143,6 +147,8 @@ function App() {
       });
 
       map.on("click", "mapillary", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
         const object = e.features[0].properties;
         let arr = [];
         for (const property in object) {
@@ -179,6 +185,14 @@ function App() {
     });
   });
 
+  const hideNav = () => {
+    document.getElementsByClassName("sidebar")[0].style.display = "none";
+  };
+
+  const openNav = () => {
+    document.getElementsByClassName("sidebar")[0].style.display = "block";
+  };
+
   useEffect(() => {
     // if (!map.current) return; // wait for map to initialize
     // map.current.on("move", () => {
@@ -190,8 +204,18 @@ function App() {
 
   return (
     <div className='App'>
+      <div className='openNav'>
+        <button className='openbtn' onClick={openNav}>
+          ☰
+        </button>
+      </div>
       <div className='sidebar'>
         {/* Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} */}
+        <div className='navParent'>
+          <button className='openbtn' onClick={hideNav}>
+            ☰
+          </button>
+        </div>
         <h3>Table of Contents</h3>
         <div className='legendBody'>
           <div className='legendItem'>
@@ -223,7 +247,7 @@ function App() {
         </div>
       </div>
       <div className='layerProperties'>
-        <h3>Click on a feature to see Details</h3>
+        <h3>Details</h3>
         <div className='layerProperties_body' id='layerProperties_body'></div>
       </div>
       <div ref={mapContainer} className='map-container' />

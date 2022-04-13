@@ -128,7 +128,7 @@ body,
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   padding: 6px 12px;
 }
 
@@ -136,4 +136,13 @@ body,
   .sidebar{
     display: none;
   }
+}
+.searchDiv{
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}
+.searchDiv_child{
+  max-width: 300px;
+  margin: 0 auto;
 }

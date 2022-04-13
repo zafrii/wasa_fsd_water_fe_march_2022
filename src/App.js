@@ -1,10 +1,10 @@
 import "./App.css";
-import ohr from "./ohr.geojson";
+import ohr from "./ohr.js";
 import { Prop } from "./prop";
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import ReactDOM from "react-dom";
-
+import Select from "react-select";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiemFmcmlpIiwiYSI6ImNrY3dpYTBtYTBlZm4zMHF1ZXdmaW9wYXAifQ.1aB3mpSztqNPZpmgchnbBA";
 
@@ -13,10 +13,10 @@ function App() {
   const [lng] = useState(73.0897201);
   const [lat] = useState(31.4317641);
   const [zoom] = useState(12);
-
+  var map;
   useEffect(() => {
     // if (map.current) return; // initialize map only once
-    const map = new mapboxgl.Map({
+    map = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [lng, lat],
@@ -185,6 +185,23 @@ function App() {
     });
   });
 
+  function selectOnChange(event) {
+    console.log(event.value);
+    map.flyTo({ center: [event.value[0], event.value[1]], zoom: 16 });
+  }
+
+  const options = [];
+  for (let i = 0; i < ohr.features.length; i++) {
+    options.push({
+      value: ohr.features[i].geometry.coordinates,
+      label: ohr.features[i].properties.Name,
+    });
+  }
+
+  const MyComponent = () => (
+    <Select options={options} onChange={selectOnChange} />
+  );
+
   const hideNav = () => {
     document.getElementsByClassName("sidebar")[0].style.display = "none";
   };
@@ -244,6 +261,11 @@ function App() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className='searchDiv'>
+        <div className='searchDiv_child'>
+          <MyComponent></MyComponent>
         </div>
       </div>
       <div className='layerProperties'>

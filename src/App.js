@@ -13,15 +13,14 @@ function App() {
   const [lng] = useState(73.0897201);
   const [lat] = useState(31.4317641);
   const [zoom] = useState(12);
-  var map;
+  var map = new mapboxgl.Map({
+    container: mapContainer.current,
+    style: "mapbox://styles/mapbox/streets-v11",
+    center: [lng, lat],
+    zoom: zoom,
+  });
   useEffect(() => {
     // if (map.current) return; // initialize map only once
-    map = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom,
-    });
 
     map.on("load", () => {
       // Add a new vector tile source with ID 'mapillary'.

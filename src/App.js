@@ -13,18 +13,21 @@ function App() {
   const [lng] = useState(73.0897201);
   const [lat] = useState(31.4317641);
   const [zoom] = useState(12);
-  var map = new mapboxgl.Map({
-    container: mapContainer.current,
-    style: "mapbox://styles/mapbox/streets-v11",
-    center: [lng, lat],
-    zoom: zoom,
-  });
+  const map = useRef(null);
+
   useEffect(() => {
     // if (map.current) return; // initialize map only once
+    /* eslint-disable import/no-anonymous-default-export  */
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [lng, lat],
+      zoom: zoom,
+    });
 
-    map.on("load", () => {
+    map.current.on("load", () => {
       // Add a new vector tile source with ID 'mapillary'.
-      map.addSource("mapillary", {
+      map.current.addSource("mapillary", {
         type: "vector",
         tiles: [
           `${process.env.REACT_APP_BACKEND_URL}tiles/pipelines?x={x}&y={y}&z={z}`,
@@ -32,7 +35,7 @@ function App() {
         minzoom: 6,
         maxzoom: 14,
       });
-      map.addLayer(
+      map.current.addLayer(
         {
           id: "mapillary", // Layer ID
           type: "line",
@@ -72,7 +75,7 @@ function App() {
         "road-label" // Arrange our new layer beneath this layer
       );
 
-      map.addLayer({
+      map.current.addLayer({
         id: "pipelines-width",
         type: "symbol",
         source: "mapillary",
@@ -93,11 +96,11 @@ function App() {
         },
       });
 
-      map.addSource("ohr", {
+      map.current.addSource("ohr", {
         type: "geojson",
         data: ohr,
       });
-      map.addLayer({
+      map.current.addLayer({
         id: "ohr",
         type: "circle",
         source: "ohr",
@@ -107,7 +110,7 @@ function App() {
         },
       });
 
-      map.addLayer({
+      map.current.addLayer({
         id: "ohr-label",
         type: "symbol",
         source: "ohr",
@@ -125,14 +128,14 @@ function App() {
         },
       });
 
-      map.on("click", () => {
+      map.current.on("click", () => {
         document.getElementsByClassName("layerProperties")[0].style.display =
           "none";
         const tooltipNode = document.getElementById("layerProperties_body");
         ReactDOM.render([], tooltipNode);
       });
 
-      map.on("click", "ohr", function (e) {
+      map.current.on("click", "ohr", function (e) {
         document.getElementsByClassName("layerProperties")[0].style.display =
           "block";
         const object = e.features[0].properties;
@@ -145,7 +148,7 @@ function App() {
         ReactDOM.render(arr, tooltipNode);
       });
 
-      map.on("click", "mapillary", function (e) {
+      map.current.on("click", "mapillary", function (e) {
         document.getElementsByClassName("layerProperties")[0].style.display =
           "block";
         const object = e.features[0].properties;
@@ -159,34 +162,34 @@ function App() {
       });
 
       // change cursor to pointer when user hovers over a clickable feature
-      map.on("mouseenter", "mapillary", (e) => {
+      map.current.on("mouseenter", "mapillary", (e) => {
         if (e.features.length) {
-          map.getCanvas().style.cursor = "pointer";
+          map.current.getCanvas().style.cursor = "pointer";
         }
       });
 
       // reset cursor to default when user is no longer hovering over a clickable feature
-      map.on("mouseleave", "mapillary", () => {
-        map.getCanvas().style.cursor = "";
+      map.current.on("mouseleave", "mapillary", () => {
+        map.current.getCanvas().style.cursor = "";
       });
 
       // change cursor to pointer when user hovers over a clickable feature
-      map.on("mouseenter", "ohr", (e) => {
+      map.current.on("mouseenter", "ohr", (e) => {
         if (e.features.length) {
-          map.getCanvas().style.cursor = "pointer";
+          map.current.getCanvas().style.cursor = "pointer";
         }
       });
 
       // reset cursor to default when user is no longer hovering over a clickable feature
-      map.on("mouseleave", "ohr", () => {
-        map.getCanvas().style.cursor = "";
+      map.current.on("mouseleave", "ohr", () => {
+        map.current.getCanvas().style.cursor = "";
       });
     });
   });
 
   function selectOnChange(event) {
     console.log(event.value);
-    map.flyTo({ center: [event.value[0], event.value[1]], zoom: 16 });
+    map.current.flyTo({ center: [event.value[0], event.value[1]], zoom: 16 });
   }
 
   const options = [];

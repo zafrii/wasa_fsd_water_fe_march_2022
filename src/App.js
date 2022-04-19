@@ -1,5 +1,9 @@
 import "./App.css";
 import ohr from "./ohr.js";
+import tubewells from "./json/tubewells.js";
+import transmission_main from "./json/transmission_main.js";
+import transmission_main2 from "./json/transmission_main2.js";
+import collector_main from "./json/collector_main.js";
 import { Prop } from "./prop";
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -111,6 +115,73 @@ function App() {
       });
 
       map.current.addLayer({
+        id: "tubewells",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: tubewells,
+        },
+        paint: {
+          "circle-color": "#f00",
+          "circle-radius": 8,
+        },
+      });
+
+      map.current.addLayer({
+        id: "transmission_main",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: transmission_main,
+        },
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+        },
+        paint: {
+          "line-opacity": 0.9,
+          "line-color": "#000",
+          "line-width": 4,
+        },
+      });
+
+      map.current.addLayer({
+        id: "transmission_main2",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: transmission_main2,
+        },
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+        },
+        paint: {
+          "line-opacity": 0.9,
+          "line-color": "#ff0",
+          "line-width": 4,
+        },
+      });
+
+      map.current.addLayer({
+        id: "collector_main",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: collector_main,
+        },
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+        },
+        paint: {
+          "line-opacity": 0.9,
+          "line-color": "#ffa500",
+          "line-width": 4,
+        },
+      });
+
+      map.current.addLayer({
         id: "ohr-label",
         type: "symbol",
         source: "ohr",
@@ -136,6 +207,19 @@ function App() {
       });
 
       map.current.on("click", "ohr", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("click", "tubewells", function (e) {
         document.getElementsByClassName("layerProperties")[0].style.display =
           "block";
         const object = e.features[0].properties;
@@ -182,6 +266,15 @@ function App() {
 
       // reset cursor to default when user is no longer hovering over a clickable feature
       map.current.on("mouseleave", "ohr", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("mouseenter", "tubewells", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "tubewells", () => {
         map.current.getCanvas().style.cursor = "";
       });
     });
@@ -235,7 +328,7 @@ function App() {
             ☰
           </button>
         </div>
-        <h3>Table of Contents</h3>
+        <h3>Water Network</h3>
         <div className='legendBody'>
           <div className='legendItem'>
             <p>Pipelines</p>
@@ -260,6 +353,42 @@ function App() {
               <div className='legendFinal'>
                 <span className='color black circle'></span>
                 <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr></hr>
+        <h3>Water Resources</h3>
+        <div className='legendBody'>
+          <div className='legendItem'>
+            <p>Tubewells</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color red circle'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>Transmission Main</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color black line'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>Transmission Main 2</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color yellow line'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>Collector Main</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color orange line'></span>
               </div>
             </div>
           </div>

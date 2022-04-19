@@ -85,6 +85,12 @@ body,
 .legendFinal .color.black {
   background: #000;
 }
+.legendFinal .color.yellow {
+  background: #ff0;
+}
+.legendFinal .color.orange {
+  background: #ffa500;
+}
 
 .legendFinal .color.circle {
   border-radius: 50%;

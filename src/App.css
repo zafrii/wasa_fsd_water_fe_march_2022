@@ -56,6 +56,7 @@ body,
   top: 0;
   left: 0;
   height: 100%;
+  overflow-y: auto;
 }
 
 .legendBody {
@@ -90,6 +91,30 @@ body,
 }
 .legendFinal .color.orange {
   background: #ffa500;
+}
+.legendFinal .color.A569BD{
+  background: #A569BD;
+}
+.legendFinal .color.c5499C7{
+  background: #5499C7;
+}
+.legendFinal .color.c48C9B0{
+  background: #48C9B0;
+}
+.legendFinal .color.cF4D03F{
+  background: #F4D03F;
+}
+.legendFinal .color.c9A7D0A{
+  background: #9A7D0A;
+}
+.legendFinal .color.cE59866{
+  background: #E59866;
+}
+.legendFinal .color.c873600{
+  background: #873600;
+}
+.legendFinal .color.c566573{
+  background: #566573;
 }
 
 .legendFinal .color.circle {

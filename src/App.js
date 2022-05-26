@@ -4,6 +4,14 @@ import tubewells from "./json/tubewells.js";
 import transmission_main from "./json/transmission_main.js";
 import transmission_main2 from "./json/transmission_main2.js";
 import collector_main from "./json/collector_main.js";
+import avr from "./json/avr.js";
+import below_off from "./json/below_off.js";
+import bf from "./json/bf.js";
+import flow_meter from "./json/flow_meter.js";
+import mvalve from "./json/mvalve.js";
+import pressure_guage from "./json/pressure_guage.js";
+import prv from "./json/prv.js";
+import saluce_valves from "./json/saluce_valves.js";
 import { Prop } from "./prop";
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -182,6 +190,110 @@ function App() {
       });
 
       map.current.addLayer({
+        id: "avr",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: avr,
+        },
+        paint: {
+          "circle-color": "#A569BD",
+          "circle-radius": 8,
+        },
+      });
+
+      map.current.addLayer({
+        id: "below_off",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: below_off,
+        },
+        paint: {
+          "circle-color": "#5499C7",
+          "circle-radius": 8,
+        },
+      });
+
+      map.current.addLayer({
+        id: "bf",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: bf,
+        },
+        paint: {
+          "circle-color": "#48C9B0",
+          "circle-radius": 8,
+        },
+      });
+
+      map.current.addLayer({
+        id: "flow_meter",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: flow_meter,
+        },
+        paint: {
+          "circle-color": "#F4D03F",
+          "circle-radius": 8,
+        },
+      });
+
+      map.current.addLayer({
+        id: "mvalve",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: mvalve,
+        },
+        paint: {
+          "circle-color": "#9A7D0A",
+          "circle-radius": 8,
+        },
+      });
+
+      map.current.addLayer({
+        id: "pressure_guage",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: pressure_guage,
+        },
+        paint: {
+          "circle-color": "#E59866",
+          "circle-radius": 8,
+        },
+      });
+
+      map.current.addLayer({
+        id: "prv",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: prv,
+        },
+        paint: {
+          "circle-color": "#873600",
+          "circle-radius": 8,
+        },
+      });
+
+      map.current.addLayer({
+        id: "saluce_valves",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: saluce_valves,
+        },
+        paint: {
+          "circle-color": "#566573",
+          "circle-radius": 8,
+        },
+      });
+
+      map.current.addLayer({
         id: "ohr-label",
         type: "symbol",
         source: "ohr",
@@ -276,6 +388,182 @@ function App() {
       });
       map.current.on("mouseleave", "tubewells", () => {
         map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("mouseenter", "avr", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "avr", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "avr", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "below_off", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "below_off", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "below_off", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "bf", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "bf", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "bf", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "flow_meter", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "flow_meter", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "flow_meter", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "mvalve", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "mvalve", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "mvalve", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "pressure_guage", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "pressure_guage", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "pressure_guage", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "prv", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "prv", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "prv", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "saluce_valves", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "saluce_valves", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "saluce_valves", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
       });
     });
   });
@@ -389,6 +677,74 @@ function App() {
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color orange line'></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr></hr>
+        <h3>Valves</h3>
+        <div className='legendBody'>
+          <div className='legendItem'>
+            <p>AVR</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color A569BD circle'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>BelowOFF</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color c5499C7 circle'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>BF</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color c48C9B0 circle'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>Flow Meter</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color cF4D03F circle'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>MValve</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color c9A7D0A circle'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>Pressure Guage</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color cE59866 circle'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>PRV</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color c873600 circle'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>Saluce Valves</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color c566573 circle'></span>
               </div>
             </div>
           </div>

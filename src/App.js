@@ -198,7 +198,7 @@ function App() {
         },
         paint: {
           "circle-color": "#A569BD",
-          "circle-radius": 8,
+          "circle-radius": 4,
         },
       });
 
@@ -211,7 +211,7 @@ function App() {
         },
         paint: {
           "circle-color": "#5499C7",
-          "circle-radius": 8,
+          "circle-radius": 4,
         },
       });
 
@@ -224,7 +224,7 @@ function App() {
         },
         paint: {
           "circle-color": "#48C9B0",
-          "circle-radius": 8,
+          "circle-radius": 4,
         },
       });
 
@@ -237,7 +237,7 @@ function App() {
         },
         paint: {
           "circle-color": "#F4D03F",
-          "circle-radius": 8,
+          "circle-radius": 4,
         },
       });
 
@@ -250,7 +250,7 @@ function App() {
         },
         paint: {
           "circle-color": "#9A7D0A",
-          "circle-radius": 8,
+          "circle-radius": 4,
         },
       });
 
@@ -263,7 +263,7 @@ function App() {
         },
         paint: {
           "circle-color": "#E59866",
-          "circle-radius": 8,
+          "circle-radius": 4,
         },
       });
 
@@ -276,7 +276,7 @@ function App() {
         },
         paint: {
           "circle-color": "#873600",
-          "circle-radius": 8,
+          "circle-radius": 4,
         },
       });
 
@@ -289,7 +289,7 @@ function App() {
         },
         paint: {
           "circle-color": "#566573",
-          "circle-radius": 8,
+          "circle-radius": 4,
         },
       });
 
@@ -688,7 +688,7 @@ function App() {
             <p>AVR</p>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
-                <span className='color A569BD circle'></span>
+                <span className='color A569BD circle small'></span>
               </div>
             </div>
           </div>
@@ -696,7 +696,7 @@ function App() {
             <p>BelowOFF</p>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
-                <span className='color c5499C7 circle'></span>
+                <span className='color c5499C7 circle small'></span>
               </div>
             </div>
           </div>
@@ -704,7 +704,7 @@ function App() {
             <p>BF</p>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
-                <span className='color c48C9B0 circle'></span>
+                <span className='color c48C9B0 circle small'></span>
               </div>
             </div>
           </div>
@@ -712,7 +712,7 @@ function App() {
             <p>Flow Meter</p>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
-                <span className='color cF4D03F circle'></span>
+                <span className='color cF4D03F circle small'></span>
               </div>
             </div>
           </div>
@@ -720,7 +720,7 @@ function App() {
             <p>MValve</p>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
-                <span className='color c9A7D0A circle'></span>
+                <span className='color c9A7D0A circle small'></span>
               </div>
             </div>
           </div>
@@ -728,7 +728,7 @@ function App() {
             <p>Pressure Guage</p>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
-                <span className='color cE59866 circle'></span>
+                <span className='color cE59866 circle small'></span>
               </div>
             </div>
           </div>
@@ -736,7 +736,7 @@ function App() {
             <p>PRV</p>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
-                <span className='color c873600 circle'></span>
+                <span className='color c873600 circle small'></span>
               </div>
             </div>
           </div>
@@ -744,7 +744,7 @@ function App() {
             <p>Saluce Valves</p>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
-                <span className='color c566573 circle'></span>
+                <span className='color c566573 circle small'></span>
               </div>
             </div>
           </div>

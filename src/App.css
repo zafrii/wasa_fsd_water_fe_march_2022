@@ -123,6 +123,12 @@ body,
   width: 20px;
 }
 
+.legendFinal .color.circle.small {
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+}
+
 .layerProperties {
   background-color: rgba(35, 55, 75, 0.9);
   color: #fff;

@@ -12,6 +12,7 @@ import mvalve from "./json/mvalve.js";
 import pressure_guage from "./json/pressure_guage.js";
 import prv from "./json/prv.js";
 import saluce_valves from "./json/saluce_valves.js";
+import dmz_boundaries from "./json/dmz_boundaries.js";
 import { Prop } from "./prop";
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -308,6 +309,24 @@ function App() {
           "text-halo-blur": 1,
           "text-halo-width": 1.5,
           "text-color": "rgba(255, 255, 255, 1)",
+        },
+      });
+
+      map.current.addLayer({
+        id: "dmz_boundaries",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: dmz_boundaries,
+        },
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+        },
+        paint: {
+          "line-opacity": 0.7,
+          "line-color": "#000",
+          "line-width": 4,
         },
       });
 
@@ -677,6 +696,14 @@ function App() {
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color orange line'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <p>DMZ Boundaries</p>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color black line'></span>
               </div>
             </div>
           </div>

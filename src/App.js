@@ -13,6 +13,7 @@ import pressure_guage from "./json/pressure_guage.js";
 import prv from "./json/prv.js";
 import saluce_valves from "./json/saluce_valves.js";
 import dmz_boundaries from "./json/dmz_boundaries.js";
+import dmz_boundaries_point from "./json/dmz_boundaries_point.js";
 import { Prop } from "./prop";
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -327,6 +328,29 @@ function App() {
           "line-opacity": 0.7,
           "line-color": "#000",
           "line-width": 4,
+        },
+      });
+
+      map.current.addLayer({
+        id: "dmz_boundaries_label",
+        type: "symbol",
+        source: {
+          type: "geojson",
+          data: dmz_boundaries_point,
+        },
+        layout: {
+          "symbol-placement": "point",
+          "text-field": ["format", ["get", "name"]],
+          "text-size": 20,
+          // "text-rotate": -4,
+          "symbol-spacing": 1,
+        },
+        paint: {
+          "text-translate": [0, -10],
+          "text-halo-color": "rgba(255, 255, 255, 1)",
+          "text-halo-blur": 0.5,
+          "text-halo-width": 1,
+          "text-color": "rgba(0, 0, 0, 1)",
         },
       });
 

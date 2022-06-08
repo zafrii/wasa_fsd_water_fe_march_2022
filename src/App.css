@@ -65,6 +65,10 @@ body,
 .legendItem {
   padding-left: 10px;
 }
+.legendItemTitle{
+  display: flex;
+  align-items: center;
+}
 .legendItems_detail {
   padding-left: 5px;
 }

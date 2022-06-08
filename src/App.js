@@ -19,6 +19,7 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import ReactDOM from "react-dom";
 import Select from "react-select";
+import { Checkbox } from "./checkbox.js";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiemFmcmlpIiwiYSI6ImNrY3dpYTBtYTBlZm4zMHF1ZXdmaW9wYXAifQ.1aB3mpSztqNPZpmgchnbBA";
 
@@ -624,6 +625,17 @@ function App() {
     });
   }
 
+  function changeVisibility(layer, checked) {
+    if (layer === "dmz_boundaries") {
+      changeVisibility("dmz_boundaries_label", checked);
+    }
+    if (layer === "mapillary") {
+      changeVisibility("pipelines-width", checked);
+    }
+    const visibility = checked === true ? "visible" : "none";
+    map.current.setLayoutProperty(layer, "visibility", visibility);
+  }
+
   const MyComponent = () => (
     <Select options={options} onChange={selectOnChange} />
   );
@@ -662,7 +674,12 @@ function App() {
         <h3>Water Network</h3>
         <div className='legendBody'>
           <div className='legendItem'>
-            <p>Pipelines</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='mapillary'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>Pipelines</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color green'></span>
@@ -679,7 +696,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>OHR</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='ohr'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>OHR</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color black circle'></span>
@@ -692,7 +714,12 @@ function App() {
         <h3>Water Resources</h3>
         <div className='legendBody'>
           <div className='legendItem'>
-            <p>Tubewells</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='tubewells'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>Tubewells</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color red circle'></span>
@@ -700,7 +727,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>Transmission Main</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='transmission_main'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>Transmission Main</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color black line'></span>
@@ -708,7 +740,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>Transmission Main 2</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='transmission_main2'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>Transmission Main 2</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color yellow line'></span>
@@ -716,7 +753,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>Collector Main</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='collector_main'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>Collector Main</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color orange line'></span>
@@ -724,7 +766,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>DMZ Boundaries</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='dmz_boundaries'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>DMZ Boundaries</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color black line'></span>
@@ -736,7 +783,12 @@ function App() {
         <h3>Valves</h3>
         <div className='legendBody'>
           <div className='legendItem'>
-            <p>AVR</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='avr'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>AVR</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color A569BD circle small'></span>
@@ -744,7 +796,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>BelowOFF</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='below_off'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>BelowOFF</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color c5499C7 circle small'></span>
@@ -752,7 +809,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>BF</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='bf'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>BF</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color c48C9B0 circle small'></span>
@@ -760,7 +822,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>Flow Meter</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='flow_meter'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>Flow Meter</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color cF4D03F circle small'></span>
@@ -768,7 +835,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>MValve</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='mvalve'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>MValve</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color c9A7D0A circle small'></span>
@@ -776,7 +848,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>Pressure Guage</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='pressure_guage'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>Pressure Guage</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color cE59866 circle small'></span>
@@ -784,7 +861,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>PRV</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='prv'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>PRV</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color c873600 circle small'></span>
@@ -792,7 +874,12 @@ function App() {
             </div>
           </div>
           <div className='legendItem'>
-            <p>Saluce Valves</p>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='saluce_valves'
+                changeVisibility={changeVisibility}></Checkbox>
+              <p>Saluce Valves</p>
+            </div>
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color c566573 circle small'></span>

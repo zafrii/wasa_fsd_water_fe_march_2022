@@ -17,6 +17,10 @@ import dmz_boundaries_point from "./json/dmz_boundaries_point.js";
 import sarfaraz_colony from "./json/sarfaraz_colony.js";
 import sarfaraz_colony_water_meter from "./json/sarfaraz_colony_water_meter.js";
 import sarfaraz_colony_red_pump from "./json/sarfaraz_colony_red_pump.js";
+import madina_town from "./json/madina_town.js";
+import madina_town_sucking_pump from "./json/madina_town_sucking_pump.js";
+import madina_town_water_connection from "./json/madina_town_water_connection.js";
+import madina_town_water_meter from "./json/madina_town_water_meter.js";
 import { Prop } from "./prop";
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -375,6 +379,63 @@ function App() {
       });
 
       map.current.addLayer({
+        id: "madina_town",
+        type: "fill",
+        source: {
+          type: "geojson",
+          data: madina_town,
+        },
+        paint: {
+          "fill-opacity": 0.5,
+          "fill-color": "#000",
+        },
+      });
+
+      map.current.addLayer({
+        id: "madina_town_water_meter",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: madina_town_water_meter,
+        },
+        paint: {
+          "circle-color": "#00ff00",
+          "circle-radius": 3,
+        },
+      });
+
+      map.current.addLayer({
+        id: "madina_town_sucking_pump",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: madina_town_sucking_pump,
+        },
+        paint: {
+          "circle-color": "#ff0000",
+          "circle-radius": 3,
+        },
+      });
+
+      map.current.addLayer({
+        id: "madina_town_water_connection",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: madina_town_water_connection,
+        },
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+        },
+        paint: {
+          "line-opacity": 0.7,
+          "line-color": "#ff0000",
+          "line-width": 3,
+        },
+      });
+
+      map.current.addLayer({
         id: "dmz_boundaries_label",
         type: "symbol",
         source: {
@@ -706,6 +767,94 @@ function App() {
       });
 
       map.current.on("click", "sarfaraz_colony_red_pump", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "madina_town", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "madina_town", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "madina_town", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "madina_town_sucking_pump", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "madina_town_sucking_pump", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "madina_town_sucking_pump", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "madina_town_water_connection", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "madina_town_water_connection", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "madina_town_water_connection", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "madina_town_water_meter", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "madina_town_water_meter", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "madina_town_water_meter", function (e) {
         document.getElementsByClassName("layerProperties")[0].style.display =
           "block";
         const object = e.features[0].properties;

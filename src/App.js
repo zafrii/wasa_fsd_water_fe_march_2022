@@ -14,6 +14,9 @@ import prv from "./json/prv.js";
 import saluce_valves from "./json/saluce_valves.js";
 import dmz_boundaries from "./json/dmz_boundaries.js";
 import dmz_boundaries_point from "./json/dmz_boundaries_point.js";
+import sarfaraz_colony from "./json/sarfaraz_colony.js";
+import sarfaraz_colony_water_meter from "./json/sarfaraz_colony_water_meter.js";
+import sarfaraz_colony_red_pump from "./json/sarfaraz_colony_red_pump.js";
 import { Prop } from "./prop";
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -333,6 +336,45 @@ function App() {
       });
 
       map.current.addLayer({
+        id: "sarfaraz_colony",
+        type: "fill",
+        source: {
+          type: "geojson",
+          data: sarfaraz_colony,
+        },
+        paint: {
+          "fill-opacity": 0.5,
+          "fill-color": "#000",
+        },
+      });
+
+      map.current.addLayer({
+        id: "sarfaraz_colony_water_meter",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: sarfaraz_colony_water_meter,
+        },
+        paint: {
+          "circle-color": "#00ff00",
+          "circle-radius": 3,
+        },
+      });
+
+      map.current.addLayer({
+        id: "sarfaraz_colony_red_pump",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: sarfaraz_colony_red_pump,
+        },
+        paint: {
+          "circle-color": "#ff0000",
+          "circle-radius": 3,
+        },
+      });
+
+      map.current.addLayer({
         id: "dmz_boundaries_label",
         type: "symbol",
         source: {
@@ -598,6 +640,72 @@ function App() {
       });
 
       map.current.on("click", "saluce_valves", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "sarfaraz_colony", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "sarfaraz_colony", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "sarfaraz_colony", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "sarfaraz_colony_water_meter", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "sarfaraz_colony_water_meter", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "sarfaraz_colony_water_meter", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "sarfaraz_colony_red_pump", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "sarfaraz_colony_red_pump", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "sarfaraz_colony_red_pump", function (e) {
         document.getElementsByClassName("layerProperties")[0].style.display =
           "block";
         const object = e.features[0].properties;

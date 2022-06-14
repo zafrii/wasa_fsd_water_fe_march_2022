@@ -23,6 +23,9 @@ import madina_town_water_connection from "./json/madina_town_water_connection.js
 import madina_town_water_meter from "./json/madina_town_water_meter.js";
 import batala_colony from "./json/batala_colony.js";
 import pc1 from "./json/pc1.js";
+import tertiary_sewer_lines from "./json/tertiary_sewer_lines.js";
+import main_sewer_lines from "./json/main_sewer_lines.js";
+import trunk_sewer_lines from "./json/trunk_sewer_lines.js";
 import { Prop } from "./prop";
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -338,6 +341,63 @@ function App() {
           "line-opacity": 0.7,
           "line-color": "#000",
           "line-width": 4,
+        },
+      });
+
+      map.current.addLayer({
+        id: "tertiary_sewer_lines",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: tertiary_sewer_lines,
+        },
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+          visibility: "none",
+        },
+        paint: {
+          "line-opacity": 1,
+          "line-color": "#000",
+          "line-width": 1,
+        },
+      });
+
+      map.current.addLayer({
+        id: "main_sewer_lines",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: main_sewer_lines,
+        },
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+          visibility: "none",
+        },
+        paint: {
+          "line-opacity": 1,
+          "line-color": "#ff0000",
+          "line-width": 4,
+        },
+      });
+
+      map.current.addLayer({
+        id: "trunk_sewer_lines",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: trunk_sewer_lines,
+        },
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+          visibility: "none",
+        },
+        paint: {
+          "line-opacity": 1,
+          "line-color": "#00ff00",
+          "line-width": 3,
         },
       });
 
@@ -942,6 +1002,72 @@ function App() {
         const tooltipNode = document.getElementById("layerProperties_body");
         ReactDOM.render(arr, tooltipNode);
       });
+
+      map.current.on("mouseenter", "tertiary_sewer_lines", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "tertiary_sewer_lines", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "tertiary_sewer_lines", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "main_sewer_lines", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "main_sewer_lines", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "main_sewer_lines", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
+
+      map.current.on("mouseenter", "trunk_sewer_lines", (e) => {
+        if (e.features.length) {
+          map.current.getCanvas().style.cursor = "pointer";
+        }
+      });
+      map.current.on("mouseleave", "trunk_sewer_lines", () => {
+        map.current.getCanvas().style.cursor = "";
+      });
+
+      map.current.on("click", "trunk_sewer_lines", function (e) {
+        document.getElementsByClassName("layerProperties")[0].style.display =
+          "block";
+        const object = e.features[0].properties;
+        let arr = [];
+        for (const property in object) {
+          console.log(`${property}: ${object[property]}`);
+          arr.push(<Prop title={property} value={object[property]} />);
+        }
+        const tooltipNode = document.getElementById("layerProperties_body");
+        ReactDOM.render(arr, tooltipNode);
+      });
     });
   });
 
@@ -1216,6 +1342,52 @@ function App() {
             <div className='legendItems_detail'>
               <div className='legendFinal'>
                 <span className='color c566573 circle small'></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr></hr>
+        <h3>Sewerage</h3>
+        <div className='legendBody'>
+          <div className='legendItem'>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='tertiary_sewer_lines'
+                changeVisibility={changeVisibility}
+                default_state={false}></Checkbox>
+              <p>Tertiary Lines</p>
+            </div>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color black line'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='main_sewer_lines'
+                changeVisibility={changeVisibility}
+                default_state={false}></Checkbox>
+              <p>Main Lines</p>
+            </div>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color red line'></span>
+              </div>
+            </div>
+          </div>
+          <div className='legendItem'>
+            <div className='legendItemTitle'>
+              <Checkbox
+                layer='trunk_sewer_lines'
+                changeVisibility={changeVisibility}
+                default_state={false}></Checkbox>
+              <p>Trunk Sewer Lines</p>
+            </div>
+            <div className='legendItems_detail'>
+              <div className='legendFinal'>
+                <span className='color green line'></span>
               </div>
             </div>
           </div>

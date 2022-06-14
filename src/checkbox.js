@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 function Checkbox(props) {
-  const [checked, setChecked] = useState(true);
+  const default_state = props.default_state === false ? false : true;
+  const [checked, setChecked] = useState(default_state);
   const layer = props.layer;
   const changeVisibility = props.changeVisibility;
   const handleChange = () => {

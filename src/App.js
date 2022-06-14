@@ -343,14 +343,15 @@ function App() {
 
       map.current.addLayer({
         id: "sarfaraz_colony",
-        type: "fill",
+        type: "line",
         source: {
           type: "geojson",
           data: sarfaraz_colony,
         },
         paint: {
-          "fill-opacity": 0.5,
-          "fill-color": "#000",
+          "line-opacity": 1,
+          "line-color": "#000",
+          "line-width": 2,
         },
       });
 
@@ -382,14 +383,15 @@ function App() {
 
       map.current.addLayer({
         id: "madina_town",
-        type: "fill",
+        type: "line",
         source: {
           type: "geojson",
           data: madina_town,
         },
         paint: {
-          "fill-opacity": 0.5,
-          "fill-color": "#000",
+          "line-opacity": 1,
+          "line-color": "#000",
+          "line-width": 2,
         },
       });
 
@@ -462,27 +464,29 @@ function App() {
 
       map.current.addLayer({
         id: "batala_colony",
-        type: "fill",
+        type: "line",
         source: {
           type: "geojson",
           data: batala_colony,
         },
         paint: {
-          "fill-opacity": 0.5,
-          "fill-color": "#000",
+          "line-opacity": 1,
+          "line-color": "#000",
+          "line-width": 2,
         },
       });
 
       map.current.addLayer({
         id: "pc1",
-        type: "fill",
+        type: "line",
         source: {
           type: "geojson",
           data: pc1,
         },
         paint: {
-          "fill-opacity": 0.5,
-          "fill-color": "#000",
+          "line-opacity": 1,
+          "line-color": "#000",
+          "line-width": 2,
         },
       });
 

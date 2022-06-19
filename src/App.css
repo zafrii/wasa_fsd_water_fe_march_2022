@@ -4,13 +4,20 @@ body,
 .map-container {
   height: 100%;
 }
-.App {
+#root > div, #root > div > div , .App {
   text-align: center;
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: gray;
 }
 
+.signout_button{
+  position: absolute;
+  right: 5px;
+  top:5px;
+  z-index: 2;
+  cursor: pointer;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -57,7 +57,7 @@ function App() {
       map.current.addSource("mapillary", {
         type: "vector",
         tiles: [
-          `${process.env.REACT_APP_BACKEND_URL}tiles/pipelines?x={x}&y={y}&z={z}`,
+          `${process.env.REACT_APP_BACKEND_URL}tiles/pipelines.php?x={x}&y={y}&z={z}`,
         ],
         minzoom: 6,
         maxzoom: 14,
